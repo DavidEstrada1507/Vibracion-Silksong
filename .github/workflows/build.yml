@@ -1,0 +1,21 @@
+name: Build Windows EXE
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurar MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compilar
+        run: cl /EHsc vibracion.cpp /link Xinput.lib
+
+      - name: Guardar ejecutable
+        uses: actions/upload-artifact@v3
+        with:
+          name: ejecutable
+          path: vibracion.exe
